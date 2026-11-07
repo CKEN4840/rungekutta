@@ -1,0 +1,23 @@
+Package: rungekutta
+Title: Resolution d'equations differentielles ordinaires par Runge-Kutta d'ordre 4
+Version: 0.1.0
+Authors@R: 
+    person("CHRISTIAN", "DJEUGFANG", email = "cken4840@gmail.com", role = c("aut", "cre"))
+Description: Implemente les methodes d'Euler et de Runge-Kutta d'ordre 4 pour
+    resoudre des equations differentielles ordinaires et des systèmes, avec
+    des exemples (modèle SIR, Lotka-Volterra) et des fonctions de
+    représentation graphique.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    ggplot2,
+    rlang
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.1
+Depends: 
+    R (>= 3.5)

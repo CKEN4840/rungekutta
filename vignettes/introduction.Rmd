@@ -1,0 +1,86 @@
+---
+title: "Introduction à rungekutta"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction à rungekutta}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.5)
+library(rungekutta)
+library(ggplot2)
+```
+
+## Une équation simple : y' = y
+
+```{r exp}
+f <- function(t, y) y
+e <- euler(f, y0 = 1, t0 = 0, tf = 2, h = 0.2)
+r <- rk4(f,   y0 = 1, t0 = 0, tf = 2, h = 0.2)
+exacte <- data.frame(t = e$t, y1 = exp(e$t))
+
+comparer_solutions(Exacte = exacte, Euler = e, RK4 = r)
+```
+
+## Ordre de convergence
+
+L'erreur globale vaut O(h) pour Euler et O(h^4) pour RK4.
+
+```{r convergence}
+pas <- c(0.5, 0.25, 0.1, 0.05, 0.025)
+erreur <- function(methode, h) {
+  sol <- methode(f, y0 = 1, t0 = 0, tf = 2, h = h)
+  abs(tail(sol$y1, 1) - exp(2))
+}
+err <- data.frame(
+  h       = rep(pas, 2),
+  methode = rep(c("Euler", "RK4"), each = length(pas)),
+  erreur  = c(sapply(pas, function(h) erreur(euler, h)),
+              sapply(pas, function(h) erreur(rk4,   h)))
+)
+
+ggplot(err, aes(h, erreur, colour = methode)) +
+  geom_line(linewidth = 1) + geom_point(size = 2.5) +
+  scale_x_log10() + scale_y_log10() +
+  labs(colour = NULL) + theme_minimal(base_size = 14)
+
+# Pentes log-log : elles estiment l'ordre de chaque méthode
+sapply(c("Euler", "RK4"), function(m) {
+  d <- err[err$methode == m, ]
+  unname(coef(lm(log(erreur) ~ log(h), data = d))[2])
+})
+```
+
+## Une épidémie : le modèle SIR
+
+```{r sir}
+sir <- rk4(modele_sir(beta = 0.3, gamma = 0.1, N = 1000),
+           y0 = c(S = 999, I = 1, R = 0), t0 = 0, tf = 160, h = 0.5)
+plot(sir)
+sir[which.max(sir$I), ]   # pic de l'épidémie
+```
+
+## Proies et prédateurs : Lotka-Volterra
+
+```{r lv}
+f_lv <- modele_lotka_volterra(alpha = 1, beta = 0.1, delta = 0.075, gamma = 1.5)
+y0   <- c(proies = 10, predateurs = 5)
+lv_e <- euler(f_lv, y0, 0, 30, 0.01)
+lv_r <- rk4(f_lv,   y0, 0, 30, 0.01)
+
+plot(lv_r)
+portrait_de_phase(Euler = lv_e, RK4 = lv_r, x = "proies", y = "predateurs")
+```
+
+Euler s'éloigne de l'orbite fermée, RK4 y reste. On le mesure avec la quantité
+conservée :
+
+```{r invariant}
+derive <- function(s) {
+  H <- invariant_lotka_volterra(s$proies, s$predateurs, 1, 0.1, 0.075, 1.5)
+  abs(H[length(H)] - H[1])
+}
+c(Euler = derive(lv_e), RK4 = derive(lv_r))
+```
