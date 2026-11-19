@@ -2,27 +2,27 @@
 % Please edit documentation in R/modeles.R
 \name{modele_sir}
 \alias{modele_sir}
-\title{Modele epidemique SIR}
+\title{SIR epidemic model}
 \usage{
 modele_sir(beta, gamma, N)
 }
 \arguments{
-\item{beta}{Taux de transmission (strictement positif).}
+\item{beta}{Transmission rate (strictly positive).}
 
-\item{gamma}{Taux de guerison (strictement positif).}
+\item{gamma}{Recovery rate (strictly positive).}
 
-\item{N}{Population totale (strictement positive).}
+\item{N}{Total population (strictly positive).}
 }
 \value{
-Une fonction \code{f(t, y)} qui renvoie \verb{c(S', I', R')}.
+A function \code{f(t, y)} returning \verb{c(S', I', R')}.
 }
 \description{
-Renvoie la fonction \code{f(t, y)} du modele SIR, a donner a \code{\link[=rk4]{rk4()}} ou \code{\link[=euler]{euler()}}.
-L'etat est \code{y = c(S, I, R)} (sains, infectes, gueris) avec
-S' = -beta\emph{S}I/N, I' = beta\emph{S}I/N - gamma\emph{I, R' = gamma}I.
+Returns the function \code{f(t, y)} of the SIR model, to be passed to \code{\link[=rk4]{rk4()}} or
+\code{\link[=euler]{euler()}}. The state is \code{y = c(S, I, R)} (susceptible, infected, recovered)
+with S' = -beta\emph{S}I/N, I' = beta\emph{S}I/N - gamma\emph{I and R' = gamma}I.
 }
 \examples{
 f   <- modele_sir(beta = 0.3, gamma = 0.1, N = 1000)
 sol <- rk4(f, y0 = c(S = 999, I = 1, R = 0), t0 = 0, tf = 160, h = 0.5)
-sol[which.max(sol$I), ]   # pic de l'epidemie
+sol[which.max(sol$I), ]   # epidemic peak
 }

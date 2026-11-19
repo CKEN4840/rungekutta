@@ -2,6 +2,8 @@
 inst/doc
 .Rhistory
 .RData
+*.RData
 .httr-oauth
 .DS_Store
 .quarto
+RKU4.git/

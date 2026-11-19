@@ -1,14 +1,15 @@
 Package: rungekutta
-Title: Resolution d'equations differentielles ordinaires par Runge-Kutta d'ordre 4
+Title: Solving Ordinary Differential Equations with the Fourth-Order Runge-Kutta Method
 Version: 0.1.0
 Authors@R: 
     person("CHRISTIAN", "DJEUGFANG", email = "cken4840@gmail.com", role = c("aut", "cre"))
-Description: Implemente les methodes d'Euler et de Runge-Kutta d'ordre 4 pour
-    resoudre des equations differentielles ordinaires et des systèmes, avec
-    des exemples (modèle SIR, Lotka-Volterra) et des fonctions de
-    représentation graphique.
+Description: Implements Euler's method and the classical fourth-order
+    Runge-Kutta method (RK4) to solve ordinary differential equations and
+    systems of equations. Includes a ready-to-use SIR epidemic model and
+    plotting functions based on 'ggplot2'.
 License: MIT + file LICENSE
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 Imports:
     ggplot2,

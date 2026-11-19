@@ -1,9 +1,9 @@
 # rungekutta
 
-Résolution d'équations différentielles ordinaires par la méthode de
-Runge-Kutta d'ordre 4, en R. Le package fournit aussi la méthode d'Euler pour
-comparer, deux modèles prêts à l'emploi (SIR et Lotka-Volterra) et des fonctions
-de représentation graphique avec ggplot2.
+Solving ordinary differential equations (ODEs) with the fourth-order
+Runge-Kutta method (RK4), in R. The package also provides Euler's method for
+comparison, a ready-to-use SIR epidemic model, and plotting functions based on
+ggplot2.
 
 ## Installation
 
@@ -12,9 +12,9 @@ de représentation graphique avec ggplot2.
 pak::pak("CKEN4840/rungekutta")
 ```
 
-## Exemple simple
+## A simple example
 
-On résout y' = y avec y(0) = 1, dont la solution exacte est exp(t).
+We solve y' = y with y(0) = 1, whose exact solution is exp(t).
 
 ```r
 library(rungekutta)
@@ -22,25 +22,25 @@ library(rungekutta)
 f   <- function(t, y) y
 sol <- rk4(f, y0 = 1, t0 = 0, tf = 2, h = 0.1)
 
-tail(sol, 1)   # valeur calculée en t = 2
-exp(2)         # valeur exacte
+tail(sol, 1)   # computed value at t = 2
+exp(2)         # exact value
 ```
 
-## Comparer les méthodes
+## Comparing the methods
 
 ```r
 e <- euler(f, y0 = 1, t0 = 0, tf = 2, h = 0.2)
 r <- rk4(f,   y0 = 1, t0 = 0, tf = 2, h = 0.2)
-exacte <- data.frame(t = e$t, y1 = exp(e$t))
+exact <- data.frame(t = e$t, y1 = exp(e$t))
 
-comparer_solutions(Exacte = exacte, Euler = e, RK4 = r)
+comparer_solutions(Exact = exact, Euler = e, RK4 = r)
 ```
 
-![Comparaison exacte, Euler et RK4](figures/comparaison_rk4.png)
+![Exact solution, Euler and RK4](figures/comparaison_rk4.png)
 
-![Ordre de convergence](figures/convergence.png)
+![Order of convergence](figures/convergence.png)
 
-## Une épidémie : le modèle SIR
+## An epidemic: the SIR model
 
 ```r
 sir <- rk4(modele_sir(beta = 0.3, gamma = 0.1, N = 1000),
@@ -48,37 +48,18 @@ sir <- rk4(modele_sir(beta = 0.3, gamma = 0.1, N = 1000),
 plot(sir)
 ```
 
-![Modèle SIR](figures/sir.png)
+![SIR model](figures/sir.png)
 
-## Proies et prédateurs : Lotka-Volterra
+## Main functions
 
-```r
-f_lv <- modele_lotka_volterra(alpha = 1, beta = 0.1, delta = 0.075, gamma = 1.5)
-y0   <- c(proies = 10, predateurs = 5)
-
-lv_e <- euler(f_lv, y0, 0, 30, 0.01)
-lv_r <- rk4(f_lv,   y0, 0, 30, 0.01)
-
-portrait_de_phase(Euler = lv_e, RK4 = lv_r, x = "proies", y = "predateurs")
-```
-
-![Portrait de phase](figures/portrait_de_phase.png)
-
-Euler s'éloigne de l'orbite fermée, alors que RK4 y reste.
-
-## Fonctions principales
-
-| Fonction | Rôle |
+| Function | Purpose |
 |---|---|
-| `rk4()` | Méthode de Runge-Kutta d'ordre 4 |
-| `euler()` | Méthode d'Euler (ordre 1) |
-| `modele_sir()` | Modèle épidémique SIR |
-| `modele_lotka_volterra()` | Modèle proies-prédateurs |
-| `invariant_lotka_volterra()` | Quantité conservée, pour mesurer l'erreur |
-| `plot()` | Trace une solution |
-| `comparer_solutions()` | Superpose plusieurs solutions |
-| `portrait_de_phase()` | Trace une composante en fonction d'une autre |
+| `rk4()` | Fourth-order Runge-Kutta method |
+| `euler()` | Euler's method (order 1) |
+| `modele_sir()` | SIR epidemic model |
+| `plot()` | Plots a solution |
+| `comparer_solutions()` | Overlays several solutions |
 
-## Licence
+## License
 
 MIT

@@ -17,25 +17,25 @@
 # Boucle commune : applique `pas` de t0 a tf avec un pas h
 .integrer <- function(pas, f, y0, t0, tf, h, methode) {
   stopifnot(
-    "f doit etre une fonction f(t, y)"    = is.function(f),
-    "y0 doit etre numerique"              = is.numeric(y0) && length(y0) >= 1,
-    "t0, tf et h doivent etre des nombres" =
+    "f must be a function f(t, y)"         = is.function(f),
+    "y0 must be numeric"                   = is.numeric(y0) && length(y0) >= 1,
+    "t0, tf and h must be single numbers"  =
       is.numeric(t0) && length(t0) == 1 &&
       is.numeric(tf) && length(tf) == 1 &&
       is.numeric(h)  && length(h)  == 1,
-    "h doit etre strictement positif"     = h > 0,
-    "tf doit etre superieur a t0"         = tf > t0
+    "h must be strictly positive"          = h > 0,
+    "tf must be greater than t0"           = tf > t0
   )
 
   n <- round((tf - t0) / h)
   if (abs(t0 + n * h - tf) > 1e-8 * max(1, abs(tf))) {
-    warning("(tf - t0) n'est pas un multiple de h : le calcul s'arrete en t = ",
+    warning("(tf - t0) is not a multiple of h: the computation stops at t = ",
             t0 + n * h, call. = FALSE)
   }
 
   # f doit renvoyer un vecteur de meme longueur que y0
   if (length(f(t0, y0)) != length(y0)) {
-    stop("f(t, y) doit renvoyer un vecteur de meme longueur que y0")
+    stop("f(t, y) must return a vector of the same length as y0")
   }
 
   t <- t0 + (0:n) * h
@@ -60,7 +60,7 @@
   p  <- list(...)
   ok <- vapply(p, function(v) is.numeric(v) && length(v) == 1 && v > 0, logical(1))
   if (!all(ok)) {
-    stop("Nombre strictement positif attendu pour : ",
+    stop("Strictly positive number expected for: ",
          paste(names(p)[!ok], collapse = ", "), call. = FALSE)
   }
 }
@@ -84,7 +84,7 @@
   sols  <- list(...)
   noms  <- names(sols)
   if (length(sols) == 0 || is.null(noms) || any(noms == "")) {
-    stop("Donner un nom a chaque solution, par exemple ",
+    stop("Give a name to each solution, for example ",
          "comparer_solutions(Euler = e, RK4 = r)", call. = FALSE)
   }
   sols

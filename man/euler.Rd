@@ -2,29 +2,29 @@
 % Please edit documentation in R/rk4.R
 \name{euler}
 \alias{euler}
-\title{Methode d'Euler}
+\title{Euler's method}
 \usage{
 euler(f, y0, t0, tf, h)
 }
 \arguments{
-\item{f}{Fonction \code{f(t, y)} qui renvoie le vecteur des derivees,
-de meme longueur que \code{y0}.}
+\item{f}{Function \code{f(t, y)} returning the vector of derivatives, with the
+same length as \code{y0}.}
 
-\item{y0}{Condition initiale : un nombre, ou un vecteur (eventuellement nomme)
-pour un systeme.}
+\item{y0}{Initial condition: a number, or a (possibly named) vector for a
+system.}
 
-\item{t0}{Instant initial.}
+\item{t0}{Initial time.}
 
-\item{tf}{Instant final, superieur a \code{t0}.}
+\item{tf}{Final time, greater than \code{t0}.}
 
-\item{h}{Pas de temps, strictement positif.}
+\item{h}{Step size, strictly positive.}
 }
 \value{
-Un data.frame de classe \code{solution_edo}, comme \code{\link[=rk4]{rk4()}}.
+A data.frame of class \code{solution_edo}, as for \code{\link[=rk4]{rk4()}}.
 }
 \description{
-Meme interface que \code{\link[=rk4]{rk4()}}, avec la methode d'Euler (ordre 1). Utile pour
-comparer la precision des deux methodes.
+Same interface as \code{\link[=rk4]{rk4()}}, using Euler's method (order 1). Useful to
+compare the accuracy of the two methods.
 }
 \examples{
 euler(function(t, y) y, y0 = 1, t0 = 0, tf = 2, h = 0.1)

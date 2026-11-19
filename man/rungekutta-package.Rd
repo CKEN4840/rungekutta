@@ -4,9 +4,17 @@
 \name{rungekutta-package}
 \alias{rungekutta}
 \alias{rungekutta-package}
-\title{rungekutta: Résolution d'équations différentielles ordinaires par Runge-Kutta d'ordre 4}
+\title{rungekutta: Solving Ordinary Differential Equations with the Fourth-Order Runge-Kutta Method}
 \description{
-Implémente les méthodes d'Euler et de Runge-Kutta d'ordre 4 pour résoudre des équations différentielles ordinaires et des systèmes, avec des exemples (modèle SIR, Lotka-Volterra) et des fonctions de représentation graphique.
+Implements Euler's method and the classical fourth-order Runge-Kutta method (RK4) to solve ordinary differential equations and systems of equations. Includes a ready-to-use SIR epidemic model and plotting functions based on 'ggplot2'.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/CKEN4840/rungekutta}
+  \item Report bugs at \url{https://github.com/CKEN4840/rungekutta/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: CHRISTIAN DJEUGFANG \email{cken4840@gmail.com}

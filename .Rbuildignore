@@ -3,3 +3,7 @@
 ^LICENSE\.md$
 ^data-raw$
 ^figures$
+^.*\.RData$
+^\.Rhistory$
+^CopyOf\.gitignore$
+^RKU4\.git$

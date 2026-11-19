@@ -2,44 +2,45 @@
 % Please edit documentation in R/rk4.R
 \name{rk4}
 \alias{rk4}
-\title{Methode de Runge-Kutta d'ordre 4}
+\title{Fourth-order Runge-Kutta method}
 \usage{
 rk4(f, y0, t0, tf, h)
 }
 \arguments{
-\item{f}{Fonction \code{f(t, y)} qui renvoie le vecteur des derivees,
-de meme longueur que \code{y0}.}
+\item{f}{Function \code{f(t, y)} returning the vector of derivatives, with the
+same length as \code{y0}.}
 
-\item{y0}{Condition initiale : un nombre, ou un vecteur (eventuellement nomme)
-pour un systeme.}
+\item{y0}{Initial condition: a number, or a (possibly named) vector for a
+system.}
 
-\item{t0}{Instant initial.}
+\item{t0}{Initial time.}
 
-\item{tf}{Instant final, superieur a \code{t0}.}
+\item{tf}{Final time, greater than \code{t0}.}
 
-\item{h}{Pas de temps, strictement positif.}
+\item{h}{Step size, strictly positive.}
 }
 \value{
-Un data.frame de classe \code{solution_edo} : la colonne \code{t}, puis une
-colonne par composante de \code{y} (\code{y1}, \code{y2}, ... si \code{y0} n'est pas nomme).
+A data.frame of class \code{solution_edo}: a column \code{t}, then one column
+per component of \code{y} (\code{y1}, \code{y2}, ... if \code{y0} is not named).
 }
 \description{
-Resout le probleme de Cauchy \eqn{y'(t) = f(t, y(t))}, \eqn{y(t_0) = y_0}
-avec un pas fixe \code{h}. Fonctionne pour une equation comme pour un systeme.
+Solves the initial value problem \eqn{y'(t) = f(t, y(t))},
+\eqn{y(t_0) = y_0} with a fixed step size \code{h}. Works for a single equation
+as well as for a system of equations.
 }
 \details{
-Chaque pas calcule quatre pentes \code{k1} a \code{k4}, puis avance de
-\code{h/6 * (k1 + 2*k2 + 2*k3 + k4)}. L'erreur globale est en O(h^4).
+Each step computes four slopes \code{k1} to \code{k4}, then advances by
+\code{h/6 * (k1 + 2*k2 + 2*k3 + k4)}. The global error is O(h^4).
 }
 \examples{
-# Equation : y' = y, y(0) = 1 (solution exacte : exp(t))
+# Equation: y' = y, y(0) = 1 (exact solution: exp(t))
 sol <- rk4(function(t, y) y, y0 = 1, t0 = 0, tf = 2, h = 0.1)
 tail(sol, 1)
 exp(2)
 
-# Systeme : pendule non lineaire, y = (angle, vitesse)
-pendule <- function(t, y) c(y[2], -sin(y[1]))
-rk4(pendule, y0 = c(theta = 1, omega = 0), t0 = 0, tf = 10, h = 0.01)[1:5, ]
+# System: nonlinear pendulum, y = (angle, angular velocity)
+pendulum <- function(t, y) c(y[2], -sin(y[1]))
+rk4(pendulum, y0 = c(theta = 1, omega = 0), t0 = 0, tf = 10, h = 0.01)[1:5, ]
 }
 \seealso{
 \code{\link[=euler]{euler()}}

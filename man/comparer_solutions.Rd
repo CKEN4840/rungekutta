@@ -2,27 +2,27 @@
 % Please edit documentation in R/plot.R
 \name{comparer_solutions}
 \alias{comparer_solutions}
-\title{Comparer plusieurs solutions}
+\title{Compare several solutions}
 \usage{
 comparer_solutions(..., variable = NULL)
 }
 \arguments{
-\item{...}{Solutions nommees, par exemple \verb{Euler = e, RK4 = r}.}
+\item{...}{Named solutions, for example \verb{Euler = e, RK4 = r}.}
 
-\item{variable}{Noms des composantes a tracer (toutes par defaut).}
+\item{variable}{Names of the components to plot (all by default).}
 }
 \value{
-Un objet \code{ggplot}.
+A \code{ggplot} object.
 }
 \description{
-Superpose des solutions (par exemple Euler, RK4 et la solution exacte).
-Chaque argument doit etre nomme ; ce nom apparait dans la legende. On peut
-aussi passer un data.frame ordinaire ayant une colonne \code{t}.
+Overlays several solutions (for example Euler, RK4 and the exact solution).
+Every argument must be named; the name appears in the legend. An ordinary
+data.frame with a column \code{t} can also be supplied.
 }
 \examples{
 f <- function(t, y) y
 e <- euler(f, 1, 0, 2, 0.2)
 r <- rk4(f, 1, 0, 2, 0.2)
-exacte <- data.frame(t = e$t, y1 = exp(e$t))
-comparer_solutions(Exacte = exacte, Euler = e, RK4 = r)
+exact <- data.frame(t = e$t, y1 = exp(e$t))
+comparer_solutions(Exact = exact, Euler = e, RK4 = r)
 }

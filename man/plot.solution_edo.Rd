@@ -2,22 +2,22 @@
 % Please edit documentation in R/plot.R
 \name{plot.solution_edo}
 \alias{plot.solution_edo}
-\title{Tracer une solution}
+\title{Plot a solution}
 \usage{
 \method{plot}{solution_edo}(x, y, ...)
 }
 \arguments{
-\item{x}{Un objet \code{solution_edo}, renvoye par \code{\link[=rk4]{rk4()}} ou \code{\link[=euler]{euler()}}.}
+\item{x}{An object of class \code{solution_edo}, returned by \code{\link[=rk4]{rk4()}} or \code{\link[=euler]{euler()}}.}
 
-\item{y}{Inutilise (present pour rester coherent avec \code{\link[=plot]{plot()}}).}
+\item{y}{Unused (kept for consistency with \code{\link[=plot]{plot()}}).}
 
-\item{...}{Inutilise.}
+\item{...}{Unused.}
 }
 \value{
-Un objet \code{ggplot}, que l'on peut modifier avec \code{+}.
+A \code{ggplot} object, which can be modified with \code{+}.
 }
 \description{
-Trace chaque composante de la solution en fonction du temps.
+Plots each component of the solution against time.
 }
 \examples{
 sol <- rk4(function(t, y) c(y[2], -y[1]), c(x = 1, v = 0), 0, 10, 0.05)
