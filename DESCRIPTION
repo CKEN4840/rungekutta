@@ -17,6 +17,7 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
+    shiny,
     testthat
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.1.1

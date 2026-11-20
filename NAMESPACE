@@ -3,6 +3,7 @@
 S3method(plot,solution_edo)
 export(comparer_solutions)
 export(euler)
+export(lancer_simulateur)
 export(modele_sir)
 export(rk4)
 importFrom(rlang,.data)

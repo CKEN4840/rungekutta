@@ -49,6 +49,21 @@ plot(sir)
 ```
 
 ![SIR model](figures/sir.png)
+## Simulator
+
+The package bundles a Shiny decision-support app for SIR epidemics. It compares
+a scenario without intervention to a scenario with a prevention measure, and
+estimates the minimum reduction in transmission needed to stay under a given
+health-system capacity.
+
+```r
+pak::pak("CKEN4840/rungekutta")
+install.packages("shiny")
+
+rungekutta::lancer_simulateur()
+```
+
+A "Scénario Douala" button loads an illustrative case with hypothetical values.
 
 ## Main functions
 
@@ -59,6 +74,7 @@ plot(sir)
 | `modele_sir()` | SIR epidemic model |
 | `plot()` | Plots a solution |
 | `comparer_solutions()` | Overlays several solutions |
+| `lancer_simulateur()` | Launches the bundled Shiny simulator |
 
 ## License
 
